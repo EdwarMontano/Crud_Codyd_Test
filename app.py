@@ -42,6 +42,7 @@ def add_user():
 
 @app.route('/edit_user/<id>')
 def get_user(id):
+    # get_users()
     cur = mysql.connection.cursor()
     cur.execute('SELECT * FROM users WHERE id = {0}'.format(id))
     data = cur.fetchall()
@@ -84,29 +85,61 @@ def delete_user(id):
 ###############################################
 @app.route('/compras',methods=["GET"])
 def Compras():
-     return render_template('compras.html')
+    cur = mysql.connection.cursor()
+    cur.execute('Select * From compras')
+    data_compra = cur.fetchall()
+    data=get_users()
+    print(data_compra)
+    return render_template('compras.html',compras=data_compra,id_users=data)
     
 def get_users():
     cur = mysql.connection.cursor()
     cur.execute('SELECT Id FROM users ')
     data = cur.fetchall()
-    print(data)
-    return 
+    id_users=[]
+    for i in range(len(data)):
+        id_users.append( list(data[i]))
+    id_users = [str(item) for sublist in id_users for item in sublist]
+    # print(id_users)
+    return id_users
 
-@app.route('/buy',methods=['POST'])
+@app.route('/compras',methods=['POST'])
 def buy():
     if request.method == 'POST':
         id = request.form['Id']
         product = request.form['product']
-        
 
         cur = mysql.connection.cursor()
         cur.execute('INSERT INTO compras(Fecha_Compra,Id_User,Product) VALUES(NOW(),%s,%s)',(id,product))
         mysql.connection.commit()    
         flash('Compra Saticfactoria')
+        
     return redirect(url_for('Compras'))
 
+@app.route('/delete_compra/<string:id>')
+def delete_compra(id):
+    cur = mysql.connection.cursor()
+    cur.execute('DELETE FROM compras WHERE id_Compra = {0}'.format(id))
+    mysql.connection.commit()    
+    flash('Compra Eliminada Correctamente')
+    return redirect(url_for('Compras'))
 
+###############################################
+#          Render Analitycs page              #
+###############################################
+@app.route('/analytics',methods=["GET"])
+def Analytics():    
+    cur = mysql.connection.cursor()
+    cur.execute('SELECT Edad,count(*) FROM users GROUP by Edad HAVING COUNT(edad)')
+    data_edad = cur.fetchall()
+    print(data_edad)
+    ageLabel=[]
+    ageCount=[]
+    for i in range(len(data_edad)):
+        ageLabel.append(data_edad[i][0])
+        ageCount.append(data_edad[i][1])
+    
+    return render_template('analytics.html',Edades_label=ageLabel,Edades_cuenta=ageCount)
 
 if  __name__ == '__main__':
     app.run(port = 3000, debug=True )

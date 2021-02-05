@@ -1,0 +1,42 @@
+{% extends 'layout.html'%}
+
+{% block body %}
+
+<H1>Edad de los Usuarios</H1>
+<!-- <p>{{Edades_label}}</p> -->
+<canvas id="myChart" width="400" height="400"></canvas>
+
+<script>
+    function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+    }
+    var ctx = document.getElementById('myChart');
+    var color = Chart.helpers.color;
+    var colorNames = Object.keys(window.chartColors);
+    var colorName = colorNames[getRandomInt(7)];
+    console.log({{Edades_cuenta}}.length,colorNames.length,getRandomInt(7))
+    var dsColor = window.chartColors[colorName];
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{Edades_label}},
+            datasets: [{
+                label: 'EDAD ',
+                data: {{Edades_cuenta}},
+                backgroundColor: color(dsColor).alpha(0.5).rgbString(),
+				borderColor: dsColor,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    </script>
+{% endblock %}

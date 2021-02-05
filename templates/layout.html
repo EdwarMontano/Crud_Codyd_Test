@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
+    <script src="../static/js/utils.js"></script>
+      
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -22,7 +25,10 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/compras">Compras</a>
-              </li>             
+              </li>   
+              <li class="nav-item">
+                <a class="nav-link" href="/analytics">Estadísticas</a>
+              </li>            
             </ul>
           </div>
         </div>
@@ -31,6 +37,11 @@
         {% block body %}
         {% endblock %}
     </div>
+    <footer class="mastfoot mt-auto">
+        <div class="inner">
+          <p>Elaborado por <a href="https://github.com/EdwarMontano">@EdwarMontano</a>.</p>
+        </div>
+      </footer>
 
     <!-- Scrip JS -->
     <script src="{{url_for('static',filename ='js/main.js')}}"></script>

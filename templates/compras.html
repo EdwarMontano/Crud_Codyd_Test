@@ -2,10 +2,12 @@
 
 {% block body %}
 <h1>Portal de Compras</h1>
-
+<div class="row">
+    <div class="col-md-5">
     {% with messages = get_flashed_messages() %}
     {% if messages %}
-    {% for message in messages%}    
+    {% for message in messages%}  
+
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         {{message}}
         <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
@@ -15,38 +17,60 @@
     {% endfor %}
     {% endif %}
     {% endwith%}
-    <div class="col-md-4 offset-md-4">
-
-    <form action="/buy" method="POST">        
-        <!-- <div class="form-group">
+    
+    <div class="card card-body">
+     <form action="/compras" method="POST">        
+        <div class="form-group">
             <label for="users">ID Usuario:</label>
             <select class="form-select"  aria-label=".form-select-lg example" name="Id" required><br/>
-                <option value="">Seleccione...</option>                      
-                <option value="Si">Si</option> 
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                {% for user in users%}    
-                <p>
-                    {{user}}
-
-                </p>
-                 
-                {% endfor %}
-                {% endif %}
-                {% endwith%}
-                                   
+                <option value="" >Seleccione...</option>   
+                {% for id_user in id_users %}                   
+                <option style="color: black;" value="{{id_user}}" >{{id_user}}</option>   
+                {% endfor %}         
+                                                                    
              </select>
-        </div> -->
+        </div>
         <div class="form-group">
             <input style="text-transform: capitalize" type="text" name="product" placeholder="producto"  class="form-control" required>        
-        </div>
-        <div class="form-group">
-            <input  type="number" name="Id" placeholder="Id usuario"  class="form-control" required>        
-        </div>
+        </div>        
+    </div> 
         
     
         <button type="submit" class="btn btn-primary btn-block">Comprar</button>
-    </form>
-    </div>   
+     </form>     
+    </div>
+
+    <div class="col-md-7">
+        <table class="table table-striped table-bordered table-sm">
+            <thead>
+                <tr>
+                    <td style="text-align: center;">Id Venta</td>
+                    <td style="text-align: center;">Fecha de Compra</td>
+                    <td style="text-align: center;">Product</td>
+                    <td style="text-align: center;">Id Comprador</td>           
+                    <td style="text-align: center;">Funciones</td>         
+                </tr>
+            </thead>
+            <tbody>
+                {% for compra in compras%}
+                <tr>
+                    
+                    <td style="text-align:right">{{compra.0}}</td>
+                    <td style="text-align:right">{{compra.1}}</td>
+                    <td style="text-align:right">{{compra.2}}</td>
+                    <td style="text-align:center">{{compra.3}}</td>
+                    <td>
+                        <!-- <a href="/edit_co/{{compra.0}}" class="btn btn-secondary">Editar</a> -->
+                        <a href="/delete_compra/{{compra.0}}" class="btn btn-danger btn-delete">Remover</a>
+                    </td>
+                </tr>
+                {% endfor %}    
+            </tbody>
+        </table>
+    </div>
+    
+    
+</div>
+
 
 {% endblock %}
