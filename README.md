@@ -1,7 +1,7 @@
 # Crud_Codyd_Test
 Technical  test
 # Screenshot
-![screentShot](./Docs/picture.png)
+![screentShot](./Docs/picture.PNG)
 
 
 # Install Dependencies
