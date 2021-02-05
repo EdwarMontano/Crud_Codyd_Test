@@ -1,0 +1,52 @@
+{% extends 'layout.html'%}
+
+{% block body %}
+<h1>Portal de Compras</h1>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages%}    
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{message}}
+        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith%}
+    <div class="col-md-4 offset-md-4">
+
+    <form action="/buy" method="POST">        
+        <!-- <div class="form-group">
+            <label for="users">ID Usuario:</label>
+            <select class="form-select"  aria-label=".form-select-lg example" name="Id" required><br/>
+                <option value="">Seleccione...</option>                      
+                <option value="Si">Si</option> 
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {% for user in users%}    
+                <p>
+                    {{user}}
+
+                </p>
+                 
+                {% endfor %}
+                {% endif %}
+                {% endwith%}
+                                   
+             </select>
+        </div> -->
+        <div class="form-group">
+            <input style="text-transform: capitalize" type="text" name="product" placeholder="producto"  class="form-control" required>        
+        </div>
+        <div class="form-group">
+            <input  type="number" name="Id" placeholder="Id usuario"  class="form-control" required>        
+        </div>
+        
+    
+        <button type="submit" class="btn btn-primary btn-block">Comprar</button>
+    </form>
+    </div>   
+
+{% endblock %}

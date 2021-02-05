@@ -1,0 +1,32 @@
+{% extends 'layout.html'%}
+
+{% block body %}
+<div class="col-md-4 offset-md-4">
+
+<form action="/update/{{user.0}}" method="POST">
+    <div class="form-group">
+        <input style="text-transform: capitalize" type="text" name="name" placeholder="Nombre" value="{{user.1}}" class="form-control" required>        
+    </div>
+    <div class="form-group">
+        <input style="text-transform: capitalize" type="text" name="fullname" placeholder="Apellido" value="{{user.2}}" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <input type="number" min="0" name="age" placeholder="Edad" value="{{user.3}}"class="form-control">
+    </div>
+    <div class="form-group">
+        <input type="number" min="0"  name="num_children" placeholder="Número Hijos" value="{{user.4}}"class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="cars">¿Es propietario de vehículo?:</label>
+        <select class="form-select"  aria-label=".form-select-lg example" name="question-Car" required><br/>
+            <option value="">Seleccione...</option>                      
+            <option value="Si">Si</option> 
+            <option value="No">No</option>                         
+         </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+</form>
+</div>   
+
+{% endblock %}
